@@ -21,7 +21,7 @@ public class NoArvore <T>{
     }
 
     public void inserirFilho(NoArvore<T> sa){
-        sa.setProximo(this.primeiro);
+        sa.setProximo(primeiro);
         this.setPrimeiro(sa);
     }
     
@@ -37,7 +37,7 @@ public class NoArvore <T>{
         return primeiro;
     }
 
-    public void setPrimeiro(NoArvore primeiro) {
+    public void setPrimeiro(NoArvore<T> primeiro) {
         this.primeiro = primeiro;
     }
 
@@ -45,7 +45,7 @@ public class NoArvore <T>{
         return proximo;
     }
 
-    public void setProximo(NoArvore proximo) {
+    public void setProximo(NoArvore<T> proximo) {
         this.proximo = proximo;
     }
     

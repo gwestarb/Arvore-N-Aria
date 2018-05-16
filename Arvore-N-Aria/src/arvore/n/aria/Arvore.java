@@ -20,7 +20,7 @@ public class Arvore<T> {
     public NoArvore<T> getRaiz() {
         return raiz;
     }
-
+ 
     public void setRaiz(NoArvore<T> raiz) {
         this.raiz = raiz;
     }
@@ -45,7 +45,7 @@ public class Arvore<T> {
     }
     
     private boolean pertence(NoArvore<T> no, T info) {
-        if (no.getInfo() == info) {
+        if (no.getInfo().equals(info)) {
             return true;
         }
         else{
@@ -62,36 +62,67 @@ public class Arvore<T> {
     }
     
     public int contarNos(){
-        return contarNos(raiz);
+        if (raiz == null) {
+            return 0;
+        }else{
+            return contarNos(getRaiz());
+        }
     }
 
     private int contarNos(NoArvore no){
         int contador = 1;
-        NoArvore<T> aux = no.getPrimeiro();
-        
-        
-        while (aux != null) {
-            contador += contarNos(aux.getProximo());
-            aux = aux.getProximo();
+        NoArvore<T> p = no.getPrimeiro();
+        while (p != null) {
+            contador += contarNos(p);
+            p = p.getProximo();
         }
         
         return contador;
     }
+    
+    public NoArvore<T> buscar(T info){
+        if (getRaiz() == null) {
+            return null;
+        }else{
+            return buscar(getRaiz(), info);
+        }
+    }
+    
+    
+    private NoArvore<T> buscar(NoArvore<T> no, T info) {
+        if (no.getInfo().equals(info)) {
+            return no;
+        }else{
+            NoArvore<T> p = no.getPrimeiro();
+            while (p != null) {
+                
+                NoArvore<T> noLocalizado = (buscar(p, info));
+                if (noLocalizado != null) {
+                    return noLocalizado;
+                }else{
+                    p = p.getProximo();
+                }
+                
+            }
+            return null;
+        }
+    }
+    
     private String obterRepresentacaoTextual(NoArvore<T> no) {
         String s = "<";
-        NoArvore<T> p = no.getPrimeiro();
-        s = s + no.info;
+        s += no.getInfo();
         
+        NoArvore<T> p;
+        p = no.getPrimeiro();
         while (p != null) {
-            s = s + obterRepresentacaoTextual(p);
+            s += obterRepresentacaoTextual(p);
             p = p.getProximo();
         }
         
-        s = s + ">";
+        s += ">";
         
         return s;
     }
 
-    
     
 }
